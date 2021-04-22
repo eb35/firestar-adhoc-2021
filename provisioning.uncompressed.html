@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <title>Wifi Test</title>
+    <title>Furnace Wi-Fi Setup</title>
     <style>
       * { box-sizing:border-box; }
       body { background:#1a1a1a; color:#eee; margin:0; padding:0; border:0; font-size:100%; font-family:sans-serif; position:relative; vertical-align:baseline; min-height:100vh; scroll-behavior:smooth; text-rendering:optimizeSpeed; line-height:1.5; }
@@ -19,9 +19,6 @@
       select, input[type=text], input[type=password] { background:#eee; border:1px solid #1a1a1a; padding:5px 10px; width:100%; }
       select { width:60%; }
       button { background:#1bab49; border:3px solid #1a1a1a; color:#eee; padding:10px 20px; }
-      .l_ { align-items:center; background:rgba(44, 44, 44, 0.5); display:flex; font-size:2.5em; height:100vh; justify-content:center; position:fixed; top:0; width:100vw; transition:.1s; }
-      .spin { animation:spin 3s linear infinite; }
-      @keyframes spin { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
     </style>
   </head>
   <body>
@@ -30,7 +27,7 @@
       <main>
         <form enctype="multipart/form-data" method="post" action="wifisave" class="b_">
           <div class="c_">
-            <label>Network Name <select name="cmbWifi" id="cmbWifi"><option id="wifitarget">Loading...</option></select></label>
+            <label>Network Name <select name="cmbWifi" id="cmbWifi"><option>Loading...</option></select></label>
             <input type="text" id="s" name="s" length="32" required value="" style="display:none">
           </div>
           <div class="c_">
@@ -48,19 +45,12 @@
         </form>
       </main>
     </section>
-    <div class="l_"><div class="spin">🕣</div><div>Loading...</div></div>
     <script>
       (function ($){
-        var cmbwifi = $("#cmbWifi"),
-          pwdcheck = $("#ps"),
-          load = $(".l_");
-        
-        cmbwifi.addEventListener("change", namechange);
-        pwdcheck.addEventListener("change", function () { $("#p").setAttribute("type", (this && this.checked ? "text": "password")); });
-        function showloader() { load.style.left = "0vw"; }
-        function hideloader() { load.style.left = "-100vw"; }
+        var cmb = $("#cmbWifi"), ps = $("#ps"), s = $("#s");
+        cmb.addEventListener("change", namechange);
+        ps.addEventListener("change", function () { $("#p").setAttribute("type", (this && this.checked ? "text": "password")); });
         function namechange(e) {
-          var s = $("#s");
           if (this.value === "+") {
             s.style.display = "inherit";
             s.value = "";
@@ -70,31 +60,7 @@
             s.value = this.value;
           }
         }
-        (function init() {
-          hideloader();
-          getAPListHTML();
-          namechange.call(cmbwifi);
-        }());
-
-        // take up 777 chars and doesn't count
-        function getAPListHTML() {
-          showloader();
-          var apslist = [ "Guest", "CB_OUT" ],
-            fragment = document.createDocumentFragment();
-          apslist.forEach(function (ap) {
-            var o = document.createElement("option");
-            o.textContent = ap;
-            fragment.appendChild(o);
-          });
-          // NEED TO ADD THIS TO YOUR **REAL** FUNCTION
-          var addoption = document.createElement("option");
-          addoption.value = "+";
-          addoption.textContent = "+ Add New Network";
-          fragment.appendChild(addoption);
-          // ^^^^^^^^^^^^^^^^^
-          $("#wifitarget").replaceWith(fragment);
-          setTimeout(hideloader, 2000);
-        }
+        (function init() { namechange.call(cmb); }());
       }(function (s) { return document.querySelector(s); }));
     </script>
   </body>
