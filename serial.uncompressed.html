@@ -19,9 +19,6 @@
       select, input[type=text], input[type=password] { background:#eee; border:1px solid #1a1a1a; padding:5px 10px; width:100%; }
       select { width:60%; }
       button { background:#1bab49; border:3px solid #1a1a1a; color:#eee; padding:10px 20px; }
-      .l_ { align-items:center; background:rgba(44, 44, 44, 0.5); display:flex; font-size:2.5em; height:100vh; justify-content:center; position:fixed; top:0; width:100vw; transition:.1s; }
-      .spin { animation:spin 3s linear infinite; }
-      @keyframes spin { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
     </style>
   </head>
   <body>
@@ -30,8 +27,7 @@
       <main>
         <form enctype="multipart/form-data" method="post" action="serialsave" class="b_">
           <div class="c_">
-            <label for="i">Furnace Serial Number</label>
-            <input type="text" id="i" name="i" length="64" required>
+            <label>Furnace Serial Number <input type="text" id="i" name="i" length="64" required></label>
           </div>
           <div class="a_">
             <button type="submit">Save</button>
