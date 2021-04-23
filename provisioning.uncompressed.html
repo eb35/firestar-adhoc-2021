@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1, user-scalable=no'>
     <title>Furnace Wi-Fi Setup</title>
     <style>
       * { box-sizing:border-box; }
@@ -23,44 +23,47 @@
   </head>
   <body>
     <section>
-      <header><h1 class="b_">Furnace Wi-Fi Setup</h1></header>
+      <header><h1 class='b_'>Furnace Wi-Fi Setup</h1></header>
       <main>
-        <form enctype="multipart/form-data" method="post" action="wifisave" class="b_">
-          <div class="c_">
-            <label>Network Name <select name="cmbWifi" id="cmbWifi"><option>Loading...</option></select></label>
-            <input type="text" id="s" name="s" length="32" required value="" style="display:none">
+        <form enctype='multipart/form-data' method='post' action='wifisave' class='b_'>
+          <div class='c_'>
+            <label>Network Name <select name='cmbWifi' id='cmbWifi'><option>Loading...</option></select></label>
+            <input type='text' id='s' name='s' length='32' required value='' style='display:none'>
           </div>
-          <div class="c_">
-            <label>Password <input type="password" id="p" name="p" length="64"></label>
-            <div class="c_">
-              <label><input type="checkbox" id="ps"> Show password</label>
+          <div class='c_'>
+            <label>Password <input type='password' id='p' name='p' length='64'></label>
+            <div class='c_'>
+              <label><input type='checkbox' id='ps' checked='true'> Show password</label>
             </div>
           </div>
-          <div class="c_">
-            <label>Furnace Serial Number <input type="text" id="i" name="i" length="64" class="up" required></label>
+          <div class='c_'>
+            <label>Furnace Serial Number <input type='text' id='i' name='i' length='64' class='up' required></label>
           </div>
-          <div class="a_">
-            <button type="submit">Save and Connect</button>
+          <div class='a_'>
+            <button type='submit'>Save and Connect</button>
           </div>
         </form>
       </main>
     </section>
     <script>
       (function ($){
-        var cmb = $("#cmbWifi"), ps = $("#ps"), s = $("#s");
-        cmb.addEventListener("change", namechange);
-        ps.addEventListener("change", function () { $("#p").setAttribute("type", (this && this.checked ? "text": "password")); });
+        var cmb = $('#cmbWifi'), ps = $('#ps'), s = $('#s');
+        cmb.addEventListener('change', namechange);
+        ps.addEventListener('change', typechange);
+        function typechange(e) {
+          $('#p').setAttribute('type', (this && this.checked ? 'text': 'password'));
+        }
         function namechange(e) {
-          if (this.value === "+") {
-            s.style.display = "inherit";
-            s.value = "";
+          if (this.value === '+') {
+            s.style.display = 'inherit';
+            s.value = '';
             s.focus();
           } else {
-            s.style.display = "none";
+            s.style.display = 'none';
             s.value = this.value;
           }
         }
-        (function init() { namechange.call(cmb); }());
+        (function init() { namechange.call(cmb); typechange.call(ps); }());
       }(function (s) { return document.querySelector(s); }));
     </script>
   </body>
